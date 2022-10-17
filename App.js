@@ -6,16 +6,17 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
+  Button,
 } from 'react-native';
 
 import {
@@ -25,93 +26,48 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import useContador from './components/useContador';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+function App(){
+  const [texto, setTexto] = useState("NADA");
+  const [cont, useCont] = useState();
+  const [count, up, down, reset] = useContador();
+  const [count2, up2, down2, reset2] = useContador();
+
+  const Human = (props) =>{
+    return <View>
+      <Text> Soy {props.name}, {props.apellido} y tengo {props.edad}</Text>
     </View>
-  );
-};
+  }
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const val = (firstName, secondName)=> {
+    return (firstName + " " + secondName)
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const text = () =>{
+    return("Aqui pone "+texto)
+  }
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Fernando Trolaz">
-            Editar <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+    return(
+      <>
+        <Text> Hola {val("Samuelle", "trolazo")} </Text>
+        <Human
+        name="Fernando"
+        apellido ="Trol"
+        edad = "23 ANOS"
+        ></Human>
+        <Button onPress={up}
+        title ={"PULSA¡¡¡"} />
+        <Text>Hola {count}</Text>
+        <Button onPress={up2}
+        title ={"PULSA¡¡¡"} />
+        <Text>Hola {count2}</Text>
+        <TextInput onChangeText={setTexto}
+        value={texto}/>
+        <Text>{text()}</Text>
+      </>
+    );
+}
 
 export default App;
