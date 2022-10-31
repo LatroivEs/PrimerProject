@@ -6,6 +6,9 @@ const useContador = () => {
     const up = () =>{
         setCount(count+1)
     }
+    const up10 = () =>{
+        setCount(count+10)
+    }
 
     const down = () =>{
         setCount(count-1)
@@ -15,7 +18,7 @@ const useContador = () => {
         setCount(0)
     }
 
-    return [count, up, down, reset]
+    return [count, up, up10, down, reset]
     
 }
 

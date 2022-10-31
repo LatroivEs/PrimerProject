@@ -26,46 +26,50 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import useContador from './components/useContador';
+import PrimerEjercicio from './components/PrimerEjercicio';
+
 
 function App(){
-  const [texto, setTexto] = useState("NADA");
-  const [cont, useCont] = useState();
-  const [count, up, down, reset] = useContador();
-  const [count2, up2, down2, reset2] = useContador();
+  const [iedad, isetEdad]= useState(null);
+  const [edad, setEdad]= useState(null);
 
-  const Human = (props) =>{
-    return <View>
-      <Text> Soy {props.name}, {props.apellido} y tengo {props.edad}</Text>
-    </View>
-  }
+  const Resp = () =>{
+    const regex = new RegExp("^[0-9]+$");
+    console.log(regex.test(edad))
 
-  const val = (firstName, secondName)=> {
-    return (firstName + " " + secondName)
-  }
+    if(edad == "" || !regex.test(edad)){
+      return ;
+    }
 
-  const text = () =>{
-    return("Aqui pone "+texto)
-  }
+    if (edad<18) {
+      return <Text style={{color:"green"}}> Que Joven Eres</Text>;
+    } else if (edad > 19 ){
+      return <Text style={{color:"blue", fontWeight:"200"}}>Pedazo de edad</Text>;
+    }
+    return <Text style={{color:"red"}}>Que Buena Edad</Text>;
+    }
 
-
-    return(
+     return(
       <>
-        <Text> Hola {val("Samuelle", "trolazo")} </Text>
-        <Human
-        name="Fernando"
-        apellido ="Trol"
-        edad = "23 ANOS"
-        ></Human>
-        <Button onPress={up}
-        title ={"PULSA¡¡¡"} />
-        <Text>Hola {count}</Text>
-        <Button onPress={up2}
-        title ={"PULSA¡¡¡"} />
-        <Text>Hola {count2}</Text>
-        <TextInput onChangeText={setTexto}
-        value={texto}/>
-        <Text>{text()}</Text>
+       <View style={{marginLeft:"15%", marginTop:"15%"}}>
+        <Text>Hola Mi Nombre es <Text style={{color:"cyan"}}>Antonio J. Moreno</Text></Text>
+       </View>
+       <View style={{marginLeft:"15%", marginTop:"10%"}}>
+         <Text style={{marginBottom:"5%"}}>Escriba aqui su edad</Text>
+          <View style={{display:"flex"}}>
+            <Text>
+              Edad 
+            </Text>
+            <TextInput onChangeText={isetEdad}
+              value={iedad}/>
+          </View>
+          {Resp()}
+        </View>
+        <View style={{ margin:"15%",borderRadius:15, borderWidth:1, flexDirection: 'row',
+          justifyContent: 'center', backgroundColor:"blue"}}>
+          <Button color="blue" title="Finalizar" onPress={() => setEdad(iedad)}></Button>
+        </View>
+       
       </>
     );
 }
