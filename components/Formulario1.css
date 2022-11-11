@@ -1,0 +1,6 @@
+.inputBox{
+    borderColor:'black',
+    width:200, height:45, 
+    borderWidth: 2,
+    borderRadius:10,
+}
