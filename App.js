@@ -29,13 +29,14 @@ import {
 import PrimerEjercicio from './components/PrimerEjercicio';
 import ImagenEjemplo from './components/ImagenEjemplo'
 import Formulario1 from './components/Formulario1'
+import FlatListIcons from './components/FlatListIcons';
 
 
 function App(){
 
      return(
       <>
-        <Formulario1 /> 
+        <FlatListIcons /> 
       </>
     );
 }
