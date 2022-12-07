@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, SafeAreaView,Text, View } from 'react-native';
+import { Button, FlatList, SafeAreaView,Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,24 +17,24 @@ const Stack = createNativeStackNavigator();
 
 const toList = ({item}) =>(
   <View >
-      <button onPress={navigation.navigate("Screen2",{nombre:item.nombre,apellidos:item.surname,edad:item.edad})}>{item.nombre}</button> 
+      <Button title={item.nombre} onClick={navigation.navigate("Screen2",{nombre:item.nombre,apellidos:item.surname,edad:item.edad})}/>
   </View>);
 
 function HomeScreen() {
   return (<>
     <Stack.Navigator >
       <Stack.Screen name="pag1" component={Screen1}/>
-      <Stack.Screen name="pag2" component={Screen2}/>
+      <Stack.Screen name="pag2" component={Screen2} initialParams={{nombre:""}}/>
     </Stack.Navigator>
     </>
   );
 }
 
-function Screen1({navigation}){
+function Screen1({navigation, route}){
   
   const toList = ({item}) =>(
     <View >
-        <button onPress={navigation.navigate("Screen2",{nombre:item.nombre,apellidos:item.surname,edad:item.edad})}>{item.nombre}</button> 
+        <Button title={item.nombre} onClick={navigation.navigate("Screen2",{nombre:item.nombre,apellidos:item.surname,edad:item.edad})}/> 
     </View>);
 
   return( <SafeAreaView>
@@ -42,10 +42,10 @@ function Screen1({navigation}){
           </SafeAreaView>)
 };
 
-function Screen2(nombre, apellidos, edad){
+function Screen2({route}){
+  const {nombre, apellidos,edad}=route.params;
   return( <SafeAreaView >
-    <Text>Nombre:{nombre}</Text> <Text> Apellidos:{apellidos}</Text>
-    <Text>Edad: {edad}</Text>
+    <Text>Nombre: {nombre} Apellidos:{apellidos} Edad: {edad}</Text>
 </SafeAreaView>)
 };
 
@@ -100,8 +100,7 @@ export default function App() {
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
-        })}
-      > 
+        })}> 
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
