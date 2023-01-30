@@ -31,13 +31,14 @@
  import Formulario1 from './components/Formulario1'
  import FlatListIcons from './components/FlatListIcons';
  import NavExample2Views from './components/NavExample2Views';
+ import ConsumAPI from './components/ConsumAPI';
  
  
  function App(){
  
       return(
        <>
-         <NavExample2Views /> 
+         <ConsumAPI /> 
        </>
      );
  }
